@@ -1,0 +1,51 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table profiles {
+  id integer [primary key]
+  user_id integer 
+  name varchar
+  skills varchar
+  interests varchar
+}
+Table users {
+  id integer [primary key]
+  username varchar
+  role varchar
+  created_at timestamp
+}
+
+Table books {
+  id integer [primary key]
+  title varchar
+  description text [note: 'Content of the post']
+  user_id integer
+  status varchar
+  edition int
+  created_at timestamp
+  
+}
+Table libraries {
+  id int [primary key]
+  owner id [ref: > users.id]
+  status varchar
+}
+Table bookLibraryrecords{
+  id int [primary key]
+  library_id int 
+  book_id int 
+  date datetime
+}
+
+Table requests {
+  id int [primary key]
+  creater_id int [ref: - users.id]
+  reciever_id int [ref: - users.id]
+  date datetime
+  status varchar
+  reject_reason varchar
+}
+
+Ref: profiles.user_id - users.id
+Ref: bookLibraryrecords.book_id - books.id
+Ref: bookLibraryrecords.library_id - libraries.id 
