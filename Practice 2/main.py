@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 import json
 from models import *
+from connection import init_bd
 
 app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    init_bd()
 
 
 @app.get("/")
@@ -41,7 +46,7 @@ def update_warrior(new_warrior: Warrior, id: int):
         if temp_bd[i]['id'] == id:
             temp_bd[i] = new_warrior
             return {"status": 400, "data": "warrior is modified"}
-
+        
 
 temp_bd = [
     {

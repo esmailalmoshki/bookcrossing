@@ -19,7 +19,7 @@ class Skill(BaseModel):
     id: int
     name: str
     description: str
-
+    
 
 class Warrior(BaseModel):
     id: int

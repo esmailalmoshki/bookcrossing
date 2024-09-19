@@ -18,16 +18,18 @@ Table users {
 Table books {
   id integer [primary key]
   title varchar
+  owner_id int [ref: > users.id]
   description text [note: 'Content of the post']
   user_id integer
-  status varchar
+  open_for_lend varchar
   edition int
   created_at timestamp
-  
+  lending_status bool
+   
 }
 Table libraries {
   id int [primary key]
-  owner id [ref: > users.id]
+  owner int [ref: >users.id]
   status varchar
 }
 Table bookLibraryrecords{
@@ -41,6 +43,7 @@ Table requests {
   id int [primary key]
   creater_id int [ref: - users.id]
   reciever_id int [ref: - users.id]
+  book_id int [ref:- books.id]
   date datetime
   status varchar
   reject_reason varchar
